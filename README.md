@@ -58,7 +58,7 @@ The arguments are written at the end of the command that starts the download pro
 
 - `--folder` or `-f` specify the folder in which the downloaded pictures will be saved
 
-- `--count` or `-c` - specify the number of random dog pictures that will be downloaded
+- `--count` or `-c` specify the number of random dog pictures that will be downloaded
 
 Examples:
 
