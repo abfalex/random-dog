@@ -7,12 +7,6 @@ import logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
 
-def get_response(session, url, params):
-	response = session.get(url, params=params)
-	response.raise_for_status()
-	return response.json()
-
-
 def download_content(session, folder, filename, url):
 	os.makedirs(folder, exist_ok=True)
 	content_path = os.path.join(folder, filename)
@@ -51,13 +45,15 @@ if __name__ == "__main__":
 		shutil.rmtree(folder)
 
 	with requests.Session() as session:
-		for response in range(pictures_count):
+		for response_number in range(pictures_count):
 			params = {"filter": "mp4,webm"}
 			url = "https://random.dog/woof.json"
 			try:
-				picture_link = get_response(session, url, params).get('url')
+				response = session.get(url, params=params)
+				response.raise_for_status()
+				picture_link = response.json().get('url')
 				link, picture_extension = os.path.splitext(picture_link)
-				filename = f"dog_{response + 1}{picture_extension}"
+				filename = f"dog_{response_number + 1}{picture_extension}"
 				download_content(session, folder, filename, picture_link)
 			except requests.RequestException as e:
 				logging.error(f"Failed to download {url}: {e}")
