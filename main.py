@@ -33,7 +33,7 @@ if __name__ == "__main__":
 		'--count',
 		help="Specify the number of dog images to download",
 		type=int,
-		default=10
+		default=50
 	)
 
 	args = parser.parse_args()
